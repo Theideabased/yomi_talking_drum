@@ -1,30 +1,13 @@
 {
-  "name": "yoruba-talking-drum-frontend",
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "installCommand": "npm install",
-  "framework": "create-react-app",
-  "env": {
-    "NODE_VERSION": "18"
-  },
-  "headers": [
+  "name": "yoruba-talking-drum",
+  "builds": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
   "routes": [
@@ -38,5 +21,13 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "REACT_APP_API_URL": "@react_app_api_url"
+  },
+  "build": {
+    "env": {
+      "REACT_APP_API_URL": "@react_app_api_url"
+    }
+  }
 }

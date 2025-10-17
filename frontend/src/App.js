@@ -4,9 +4,27 @@ import './App.css';
 import FileUpload from './components/FileUpload';
 import PredictionResult from './components/PredictionResult';
 import ModelInfo from './components/ModelInfo';
+import ErrorBoundary from './components/ErrorBoundary';
+import './components/ErrorBoundary.css';
 import { Music, AlertCircle, CheckCircle } from 'lucide-react';
 
-const API_URL = 'http://localhost:8000';
+// API URL configuration
+const getApiUrl = () => {
+  // In development, use localhost
+  if (process.env.NODE_ENV === 'development') {
+    return process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  }
+  
+  // In production, use environment variable or show offline message
+  const prodUrl = process.env.REACT_APP_API_URL;
+  if (!prodUrl || prodUrl === 'https://your-backend-api.com') {
+    return null; // Will show offline message
+  }
+  
+  return prodUrl;
+};
+
+const API_URL = getApiUrl();
 
 function App() {
   const [modelStatus, setModelStatus] = useState(null);
@@ -21,15 +39,33 @@ function App() {
   }, []);
 
   const checkHealth = async () => {
+    if (!API_URL) {
+      setModelStatus({ 
+        status: 'offline', 
+        model_loaded: false, 
+        message: 'Backend API not configured. This is a frontend-only demo.' 
+      });
+      return;
+    }
+
     try {
       const response = await axios.get(`${API_URL}/health`);
       setModelStatus(response.data);
     } catch (err) {
-      setModelStatus({ status: 'offline', model_loaded: false, message: 'Cannot connect to API' });
+      setModelStatus({ 
+        status: 'offline', 
+        model_loaded: false, 
+        message: 'Cannot connect to API. Backend may be offline.' 
+      });
     }
   };
 
   const handleFileUpload = async (file) => {
+    if (!API_URL) {
+      setError('Backend API not available. This is a frontend-only demo.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setPrediction(null);
@@ -148,4 +184,12 @@ function App() {
   );
 }
 
-export default App;
+function AppWithErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  );
+}
+
+export default AppWithErrorBoundary;
