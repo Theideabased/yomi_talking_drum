@@ -1,0 +1,250 @@
+.prediction-result {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+}
+
+.award-icon {
+  color: #FFD700;
+}
+
+.result-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.prediction-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-prediction {
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 200px;
+}
+
+.note-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.note-symbol {
+  font-size: 3rem;
+}
+
+.note-name {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.confidence-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.confidence-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+
+.confidence-value {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.confidence-high {
+  border: 2px solid rgba(46, 204, 113, 0.5);
+}
+
+.confidence-medium {
+  border: 2px solid rgba(243, 156, 18, 0.5);
+}
+
+.confidence-low {
+  border: 2px solid rgba(231, 76, 60, 0.5);
+}
+
+.cultural-info {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-item strong {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.info-item span {
+  font-size: 1rem;
+}
+
+.audio-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.audio-info span {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.chart-container {
+  margin-bottom: 2rem;
+}
+
+.chart-container h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.detailed-scores {
+  margin-top: 2rem;
+}
+
+.detailed-scores h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.scores-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.score-item {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.score-item:hover {
+  background: #f0f0f0;
+  transform: translateX(4px);
+}
+
+.score-item.predicted {
+  background: linear-gradient(to right, #fff5f2, #fff);
+  border-left: 4px solid #FF6B35;
+  font-weight: bold;
+}
+
+.score-note {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.score-bar-container {
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.score-bar {
+  height: 100%;
+  background: linear-gradient(to right, #4ECDC4, #44A08D);
+  border-radius: 12px;
+  transition: width 0.5s ease-out;
+}
+
+.score-item.predicted .score-bar {
+  background: linear-gradient(to right, #FF6B35, #F7931E);
+}
+
+.score-value {
+  font-weight: 600;
+  color: #666;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .audio-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .score-item {
+    grid-template-columns: 50px 1fr 70px;
+    gap: 0.5rem;
+  }
+}

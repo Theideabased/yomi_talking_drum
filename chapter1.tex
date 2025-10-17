@@ -1,0 +1,151 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\\subsection{Main Objective}
+To systematically cur\begin{itemize}
+\item \textbf{Audio Quality Variation:} Samples from different sources may have varying recording quality and technical specifications.
+\item \textbf{Metadata Inconsistency:} Available resources may lack comprehensive cultural and technical documentation.
+\item \textbf{Sample Size Constraints:} The curated dataset size depends on the availability and accessibility of existing resources.
+\item \textbf{Cultural Context Gaps:} Some audio samples may lack detailed cultural context information.
+\item \textbf{Annotation Complexity:} Manual annotation of cultural and musical features requires expertise and time investment.
+\end{itemize}rocess, and integrate existing talking drum audio resources into a comprehensive dataset suitable for AI pattern generation.
+
+\subsection{Specific Objectives}
+\begin{enumerate}
+\item To identify, collect, and curate talking drum audio samples from available digital platforms including Freesound.org, academic archives, and cultural repositories.
+\item To process and standardize collected audio resources using modern audio processing techniques for optimal AI training compatibility.
+\item To develop comprehensive annotations for musical features (rhythm, tempo, pitch), cultural context, and technical metadata across all collected samples.
+\item To integrate curated resources with established datasets (MAESTRO, NSynth, Groove MIDI) for comparative analysis and enhanced AI training.
+\item To design and implement AI models (GANs, RNNs, Transformers) demonstrating the effectiveness of the curated dataset for rhythm and pattern generation.
+\item To establish a reproducible methodology for ongoing expansion and refinement of the talking drum dataset using additional available resources.
+\end{enumerate}amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+
+\title{Development of Talking Drums Dataset for AI Patterns Generation}
+\author{Fowe, Abayomi David\\
+Student ID: 239074108\\
+Department of Computer Sciences\\
+Faculty of Computer Sciences\\
+University of Lagos\\
+MIT 817 -- Seminar on Current Topics in Information Technology\\
+M.Sc. I.T}
+\date{August, 2025}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section*{Abstract}
+
+The talking drum, notably the Yoruba dùndún or gángan, is a distinctive West African percussion instrument capable of mimicking human speech by manipulating pitch, rhythm, and intensity—effectively functioning as a speech surrogate in tonal languages like Yoruba. Acoustic studies confirm a strong correlation between drum-produced tonal contours and spoken Yoruba tones, reinforcing the drum's role in conveying linguistic meaning through sound.
+
+It is widely known that Yorùbá drummers communicate through their native drums. This paper investigates the grammar of gángan, which belongs to a family of Yoruba drums called dùndún. The results of this study show that Yorùbá drummers represent the phonetic realization of lexical and grammatical tones of their language with the drum. Statistically, the speech tones and the acoustic correlate of the corresponding drum representations have a significant positive relationship. In both spoken and drum communication, vowel (V) and consonant-vowel (CV) prosodic units have different statuses. To conclude, Yorùbá drummers communicate via the gángan drum by transposing certain phonemic features and maybe phonological conditions of their language to musical forms.
+
+Building on this cultural and acoustic foundation, we present the development of a comprehensive talking-drums AI system utilizing existing publicly available datasets and audio collections. Rather than creating new recordings, this research leverages established resources including Freesound.org percussion collections, ethnomusicological archives, and existing African music datasets to construct a robust foundation for AI pattern generation. This approach allows for immediate implementation while establishing methodologies that can be extended with future data collection.
+
+Our methodology combines multiple existing data sources: percussion samples from Freesound.org (over 500 talking drum and African percussion samples), digitized ethnomusicological recordings from academic archives, and comparative datasets from established music information retrieval repositories like MAESTRO and NSynth. These datasets are systematically processed, analyzed, and annotated to create a unified resource for AI training.
+
+We outline our methods for data curation, audio processing, and feature extraction—drawing inspiration from computational musicology and existing music AI frameworks. Leveraging these processed datasets, we demonstrate how the combined resource can support AI-driven tasks such as:
+
+\begin{itemize}
+\item Neural drum pattern generation: Using sequence-to-sequence models to translate speech or tone sequences into rhythmic drum patterns.
+\item Cross-modal synthesis: Generating drum rhythms from speech input or vice versa.
+\item Tone-sensitive AI: Enhancing rhythm generation with formal tone mapping.
+\end{itemize}
+
+Drawing parallels from prior work in musical AI—such as drum-loop generation from language cues and leveraging language-model fine-tuning for drum composition—we position our talking-drums dataset as a unique, culturally rich resource that bridges linguistic tonal patterns and rhythmic AI creativity.
+
+Finally, we discuss plans for expanding the dataset to include additional dialects and drumming modes, and explore potential applications such as AI-assisted music composition, preservation of musical heritage, and tonal-language research.
+
+\newpage
+
+\section{Introduction}
+
+Music has always played a central role in human society, functioning not only as a form of entertainment but also as a medium for communication, identity, and cultural preservation. Across cultures, musical instruments have historically been used to transpose linguistic features into melodies, enabling them to function as speech surrogates. Examples include the Sino-Tibetan gourd organ \cite{bradley1979}, the Hmong raj of Southeast Asia \cite{poss2005,poss2012}, the Asante ivory trumpet of Ghana \cite{kaminski2008}, the Sabar of Senegal \cite{winter2014}, the balafon of the Sambla people in Burkina Faso \cite{mcpherson2018}, and the Amazon Bora system \cite{seifart2018}. Stern (1957) distinguishes between surrogate systems that represent phonemic aspects of language ("abridged") and those that encode meaning without phonemic reference ("lexical ideogram"). This study focuses on the former, particularly within the Yorùbá cultural context \cite{akinbo2021}.
+
+Among the wide range of musical instruments capable of serving as speech surrogates \cite{lo1987,agawu2016}, the talking drum (dùndún) of the Yorùbá people stands out for its unique ability to encode the tonal patterns of Yorùbá speech. By adjusting the tension of the hourglass-shaped drum with leather cords, drummers skillfully manipulate pitch and rhythm to mimic the phonemic and prosodic features of speech \cite{beier1954,euba1967,euba1990,villepastour2010}. This ability has made the talking drum a central instrument of communication, historically used for relaying messages across distances, reciting praise poetry, and preserving oral traditions. As McPherson (2019) notes, studying such speech surrogates through a linguistic rather than purely musical lens offers valuable insights into the representation of phonological features, thereby providing language-external evidence for phonological theory \cite{akinbo2021}.
+
+Despite its cultural and linguistic richness, the talking drum remains underrepresented in computational musicology and Artificial Intelligence (AI) research \cite{akinbo2021}. Contemporary AI systems for music generation predominantly rely on datasets and models derived from Western instruments and genres. However, significant digital audio resources exist that can be leveraged for talking drum AI research. Platforms like Freesound.org contain over 500 samples of African percussion and talking drums, academic archives hold digitized ethnomusicological recordings, and established datasets like MAESTRO and NSynth provide comparative frameworks for musical AI development.
+
+The challenge lies not in the absence of data, but in the systematic curation, processing, and integration of these dispersed resources into a unified framework suitable for AI training. Recent analyses reveal that over 86\% of AI music training data originates from the Global North, with only 14.6\% representing the Global South, yet the raw materials for African music AI research are available across various platforms and archives.
+
+The systematic curation and integration of existing talking drum audio resources for AI pattern generation thus addresses both a cultural and technical opportunity. By consolidating dispersed digital resources—from Freesound.org's community-contributed samples to academic ethnomusicological archives—this project creates a structured dataset with detailed annotations of pitch contours, rhythmic structures, tempo variations, and cultural contexts. Such comprehensive processing of existing materials opens multiple research pathways: GANs can model culturally faithful timbres from the curated samples, RNNs and Transformers can capture patterns across diverse performance styles, and VAEs can map latent spaces of tonal-rhythmic expression extracted from the integrated dataset. Furthermore, comparative analysis with established datasets like MAESTRO and Groove MIDI enables cross-cultural musical AI development \cite{zhu2023}.
+
+Beyond technical advancement, this project contributes significantly to cultural preservation and innovation. By digitally archiving the communicative and musical hybridity of the talking drum, the dataset ensures the survival and global visibility of African musical traditions. Moreover, it provides a foundation for creative applications in AI-assisted composition, heritage education, and cross-cultural music fusion. Emerging initiatives such as KorinAI, which develops AI models grounded in African voices and sound libraries, underscore the importance of culturally inclusive AI systems.
+
+In summary, the systematic curation of existing talking drum resources for AI pattern generation is both a scholarly and cultural imperative. By leveraging available digital archives and bridging indigenous African knowledge systems with cutting-edge computational models such as GANs, VAEs, and sequence-based neural architectures, this project advances AI music research while ensuring that African musical heritage is preserved, recognized, and globally appreciated through immediate, practical implementation.
+
+\section{Problem Statement}
+
+Artificial Intelligence has demonstrated significant potential in music composition, sound synthesis, and rhythm generation. However, these advances are disproportionately built upon datasets dominated by Western music, marginalizing non-Western instruments and traditions. While datasets like MAESTRO (piano), NSynth (multi-instrument audio), and Groove MIDI Dataset (drum kit rhythms) have enabled AI breakthroughs, African instruments remain underutilized despite the availability of relevant digital resources.
+
+The underutilization of existing talking drum resources creates several challenges:
+
+\begin{itemize}
+\item 	extbf{Resource Fragmentation:} Talking drum audio samples exist across multiple platforms (Freesound.org, academic archives, cultural repositories) but lack systematic organization for AI research.
+\item 	extbf{Technical Integration Gap:} Available resources are not processed or formatted for modern AI frameworks, limiting their research utility.
+\item 	extbf{Cultural Underrepresentation:} Despite available materials, African instruments remain absent from structured AI music datasets.
+\item 	extbf{Annotation Deficiency:} Existing audio lacks the detailed musical and cultural annotations necessary for sophisticated AI training.
+\item 	extbf{Research Accessibility:} Dispersed resources create barriers for researchers seeking to study African musical AI applications.
+\end{itemize}
+
+Unless these existing resources are systematically curated and integrated, the talking drum will remain underrepresented in AI-driven music applications despite the availability of source materials.
+
+\section{Objectives of the Study}
+
+\subsection{Main Objective}
+To develop a structured and annotated dataset of talking drum recordings suitable for AI pattern generation.
+
+\subsection{Specific Objectives}
+\begin{enumerate}
+\item To record and digitize high-quality audio samples of talking drum performances across different rhythms, tempos, and communicative contexts.
+\item To annotate recordings with relevant musical and linguistic features such as pitch contour, tempo, rhythmic patterns, and tonal inflections.
+\item To design a standardized dataset structure (audio + metadata) that facilitates AI training and experimentation.
+\item To demonstrate the use of the dataset in AI models for rhythm and sound generation, using GANs, RNNs, and Transformer-based architectures.
+\item To contribute to the preservation of African musical heritage through digital archiving and global accessibility.
+\end{enumerate}
+
+\section{Significance of the Study}
+
+\begin{itemize}
+\item \textbf{Academic Significance:} Provides researchers with the first structured dataset of talking drums, enabling cross-disciplinary studies in computational musicology, ethnomusicology, and AI.
+\item \textbf{Cultural Significance:} Preserves African oral traditions and ensures the talking drum is recognized in digital cultural archives.
+\item \textbf{Technological Significance:} Enables development of AI systems capable of generating African rhythms, enhancing diversity in AI creativity.
+\item \textbf{Educational Significance:} Serves as a teaching resource for students of music, linguistics, and AI by providing annotated real-world data.
+\item \textbf{Socioeconomic Significance:} Creates opportunities for African musicians and innovators to develop culturally grounded digital tools, boosting creative industries.
+\end{itemize}
+
+\section{Scope of the Study}
+
+This project focuses on the systematic curation and integration of existing talking drum audio resources for AI pattern generation. The methodology includes:
+
+\begin{itemize}
+\item Collection and curation of audio samples from Freesound.org, academic digital archives, and cultural repositories.
+\item Processing and standardization using modern audio analysis frameworks (librosa, essentia, scipy).
+\item Comprehensive annotation of musical, cultural, and technical features.
+\item Integration with established AI music datasets for comparative analysis.
+\item Implementation and evaluation of AI models using the curated dataset.
+\end{itemize}
+
+The scope prioritizes immediate implementation using available resources, establishing a foundation for future expansion with additional data sources.
+
+\section{Limitations of the Study}
+
+\begin{itemize}
+\item \textbf{Data Size:} The dataset may be smaller compared to large-scale Western datasets due to limited access to professional drummers and recording resources.
+\item \textbf{Environmental Factors:} Background noise during recordings may affect data quality.
+\item \textbf{Complexity of Tonal Systems:} Capturing the full linguistic depth of Yorùbá and other tonal languages may be challenging.
+\item \textbf{Generalization:} AI models trained on the dataset may initially struggle to generalize across drummers with different styles.
+\end{itemize}
+
+\end{document}
