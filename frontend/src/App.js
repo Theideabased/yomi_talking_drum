@@ -8,23 +8,10 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './components/ErrorBoundary.css';
 import { Music, AlertCircle, CheckCircle } from 'lucide-react';
 
-// API URL configuration
-const getApiUrl = () => {
-  // In development, use localhost
-  if (process.env.NODE_ENV === 'development') {
-    return process.env.REACT_APP_API_URL || 'http://localhost:8000';
-  }
-  
-  // In production, use environment variable or show offline message
-  const prodUrl = process.env.REACT_APP_API_URL;
-  if (!prodUrl || prodUrl === 'https://your-backend-api.com') {
-    return null; // Will show offline message
-  }
-  
-  return prodUrl;
-};
-
-const API_URL = getApiUrl();
+// API URL configuration - simplified for deployment
+const API_URL = process.env.NODE_ENV === 'development' 
+  ? 'http://localhost:8000' 
+  : null; // Will show offline message in production until backend is deployed
 
 function App() {
   const [modelStatus, setModelStatus] = useState(null);

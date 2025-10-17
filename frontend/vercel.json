@@ -1,15 +1,9 @@
 {
   "version": 2,
   "name": "yoruba-talking-drum",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm install",
   "routes": [
     {
       "src": "/static/(.*)",
@@ -21,13 +15,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
-  },
-  "build": {
-    "env": {
-      "REACT_APP_API_URL": "@react_app_api_url"
-    }
-  }
+  ]
 }
