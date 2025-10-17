@@ -106,7 +106,7 @@ This project was developed as part of a **Computer Science thesis** exploring:
 
 ### **Thesis Contributions**
 1. ✅ Novel dataset of Yoruba talking drum recordings
-2. ✅ Enhanced CNN architecture with cultural attention
+2. ✅ Enhanced CNN architecture with cultural attentions
 3. ✅ Real-time web application for accessibility
 4. ✅ Comprehensive documentation and reproducibility
 
