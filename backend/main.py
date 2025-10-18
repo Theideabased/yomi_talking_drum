@@ -388,6 +388,9 @@ async def predict_audio(file: UploadFile = File(...)):
         audio, sr = librosa.load(tmp_path, sr=22050)
         duration = len(audio) / sr
         
+        if len(audio) == 0:
+            raise HTTPException(status_code=400, detail="Empty audio file")
+        
         # Extract features
         features = extract_features(audio, sr)
         if features is None:
