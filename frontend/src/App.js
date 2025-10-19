@@ -18,6 +18,7 @@ function App() {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('upload');
+  const [audioFile, setAudioFile] = useState(null);
 
   // Check API health on mount
   useEffect(() => {
@@ -55,6 +56,7 @@ function App() {
     setLoading(true);
     setError(null);
     setPrediction(null);
+    setAudioFile(file); // Store the audio file
 
     try {
       const formData = new FormData();
@@ -69,6 +71,7 @@ function App() {
       setPrediction(response.data);
     } catch (err) {
       setError(err.response?.data?.detail || 'Error processing audio file');
+      setAudioFile(null); // Clear audio file on error
     } finally {
       setLoading(false);
     }
@@ -152,7 +155,7 @@ function App() {
                   </div>
                 )}
 
-                {prediction && <PredictionResult prediction={prediction} />}
+                {prediction && <PredictionResult prediction={prediction} audioFile={audioFile} />}
               </div>
             )}
 

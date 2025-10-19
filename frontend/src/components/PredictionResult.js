@@ -1,9 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Award, Info } from 'lucide-react';
+import { Award, Info, Play, Pause, Volume2 } from 'lucide-react';
 import './PredictionResult.css';
 
-function PredictionResult({ prediction }) {
+function PredictionResult({ prediction, audioFile }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
+  const [audioUrl, setAudioUrl] = useState(null);
+
+  useEffect(() => {
+    // Create a URL for the audio file
+    if (audioFile) {
+      const url = URL.createObjectURL(audioFile);
+      setAudioUrl(url);
+      
+      // Cleanup function to revoke the URL when component unmounts
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, [audioFile]);
+
+  const togglePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+  };
+
+  const handleSeek = (e) => {
+    const seekTime = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = seekTime;
+      setCurrentTime(seekTime);
+    }
+  };
+
+  const formatTime = (time) => {
+    if (isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   if (!prediction) return null;
 
   const { predicted_note, confidence, all_confidences, cultural_info, audio_duration } = prediction;
@@ -27,6 +89,52 @@ function PredictionResult({ prediction }) {
         <Award size={32} className="award-icon" />
         <h2>Prediction Result</h2>
       </div>
+
+      {/* Audio Player */}
+      {audioUrl && (
+        <div className="audio-player-container">
+          <div className="audio-player">
+            <audio
+              ref={audioRef}
+              src={audioUrl}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+              onEnded={handleEnded}
+            />
+            
+            <div className="audio-controls">
+              <button 
+                className="play-button" 
+                onClick={togglePlayPause}
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+              </button>
+              
+              <div className="audio-progress">
+                <span className="time-label">{formatTime(currentTime)}</span>
+                <input
+                  type="range"
+                  min="0"
+                  max={duration || 0}
+                  value={currentTime}
+                  onChange={handleSeek}
+                  className="progress-slider"
+                />
+                <span className="time-label">{formatTime(duration)}</span>
+              </div>
+              
+              <div className="volume-icon">
+                <Volume2 size={20} />
+              </div>
+            </div>
+            
+            <div className="audio-info-badge">
+              <span>🎵 Playing: {audioFile?.name || 'Audio File'}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="result-grid">
         {/* Main Prediction */}
