@@ -1,0 +1,9 @@
+# Requirements for Talking Drum Dataset Augmentation
+# Install with: pip install -r requirements_augmentation.txt
+
+librosa>=0.8.0
+soundfile>=0.10.3
+numpy>=1.19.0
+scipy>=1.7.0
+tqdm>=4.62.0
+pathlib2>=2.3.6
