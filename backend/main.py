@@ -460,9 +460,12 @@ async def get_all_notes():
     }
 
 if __name__ == "__main__":
-    print("🚀 Starting Yoruba Talking Drum Translator API")
-    print("📡 API will be available at: http://localhost:8000")
-    print("📚 API docs available at: http://localhost:8000/docs")
-    print("🔧 ReDoc available at: http://localhost:8000/redoc")
+    import os
+    port = int(os.getenv("PORT", 8000))
     
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
+    print("🚀 Starting Yoruba Talking Drum Translator API")
+    print(f"📡 API will be available at: http://localhost:{port}")
+    print(f"📚 API docs available at: http://localhost:{port}/docs")
+    print(f"🔧 ReDoc available at: http://localhost:{port}/redoc")
+    
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)

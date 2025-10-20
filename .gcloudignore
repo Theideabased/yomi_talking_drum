@@ -1,0 +1,13 @@
+# Don't upload unnecessary files to Cloud Build
+# But KEEP backend/ and model/ directories
+.git/
+.gitignore
+frontend/node_modules/
+model_development/
+.venv/
+venv/
+*.log
+.vscode/
+.idea/
+*.md
+*.sh

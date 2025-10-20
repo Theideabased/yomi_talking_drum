@@ -1,0 +1,24 @@
+# Ignore unnecessary files but KEEP model directory
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.git/
+.gitignore
+.env
+.venv/
+venv/
+*.md
+.vscode/
+.idea/
+*.log
+frontend/
+model_development/
+.github/
+*.sh
