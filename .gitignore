@@ -59,10 +59,10 @@ Thumbs.db
 # Logs
 *.log
 
-# Model files (large)
-*.pth
-*.pkl
-model/
+# Model files - KEEP model/ directory with trained files for deployment
+# *.pth
+# *.pkl
+# model/
 
 # Dataset (large)
 augmented_talking_drum_dataset/
