@@ -1,7 +1,7 @@
 # Streamlit Deployment Requirements
 streamlit>=1.28.0
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.0.0+cpu
+torch>=2.0.0
+torchaudio>=2.0.0
 librosa>=0.10.0
 soundfile>=0.12.0
 matplotlib>=3.7.0
