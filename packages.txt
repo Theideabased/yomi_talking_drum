@@ -1,4 +1,3 @@
-apt-get update && apt-get install -y \
-    libsndfile1 \
-    ffmpeg \
-    libavcodec-extra
+libsndfile1
+ffmpeg
+libavcodec-extra
